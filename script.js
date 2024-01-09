@@ -166,13 +166,16 @@ function generatePassword() {
 
   // first get one character from each of the character types that the user specified
 
-  for (i = 0; i < passwordOptions.characterTypesSelected.length; i++) {
+  for (var i = 0; i < passwordOptions.characterTypesSelected.length; i++) {
     // get a character from the corresponding array and add it to the passwordCharacters string
+    var characterType = passwordOptions.characterTypesSelected[i];
   }
 
   // then fill up the rest of the passwordCharacters string with random characters from user's specified character types
   while (passwordCharacters.length < passwordOptions.passwordLength) {
-     
+    var characterType = getRandom(passwordOptions.characterTypesSelected);
+
+
   }
 }
 
