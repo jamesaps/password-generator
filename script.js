@@ -106,6 +106,25 @@ function getPasswordOptions() {
       validPasswordLength = true;
     }
   }
+
+  var validLowercaseCharactersResponse = false;
+
+  while(! validLowercaseCharactersResponse) {
+    var passwordLowercaseCharacters = prompt('Would you like your password to include lowercase characters? Please enter YES or NO.');
+    var passwordLowercaseCharactersResponseCleaned = passwordLowercaseCharacters.toUpperCase().trim();
+
+    if (passwordLowercaseCharactersResponseCleaned === "YES") {
+      alert("Thank you. Your password will contain lowercase characters.");
+      validLowercaseCharactersResponse = true;
+    } else if (passwordLowercaseCharactersResponseCleaned === "NO") {
+      alert("Thank you. Your password will not contain lowercase characters.");
+      validLowercaseCharactersResponse = false;
+    } else {
+      alert("Your response was invalid. Please try again.");
+    }
+  }
+
+  
 }
 
 // Function for getting a random element from an array
