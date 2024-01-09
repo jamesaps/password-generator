@@ -108,23 +108,19 @@ function getPasswordOptions() {
   var validCharacterTypesResponse = false;
   var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
 
-  var characterTypesSelected = 0;
-  var characterTypesResponses = {};
+  var characterTypesSelected = [];
 
   while (! validCharacterTypesResponse) {
     characterTypes.forEach(function (characterType) {
       var characterTypeResponse = getCharacterTypeResponse(characterType);
   
-      characterTypesResponses[characterType] = characterTypeResponse;
-  
       if (characterTypeResponse === true) {
-        characterTypesSelected++;
+        characterTypesSelected.push(characterType);
       }
     });
 
-    if (characterTypesSelected === 0) {
+    if (characterTypesSelected.length === 0) {
       alert("You must specify at least one character type to include in your password. Please try again.");
-      characterTypesResponses = {};
     } else {
       validCharacterTypesResponse = true;
     }
@@ -132,7 +128,7 @@ function getPasswordOptions() {
 
   return {
     passwordLength: passwordLength,
-    characterTypesResponses: characterTypesResponses
+    characterTypesSelected: characterTypesSelected
   };
 }
 
@@ -166,8 +162,6 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   var passwordOptions = getPasswordOptions();
-
-  console.log(passwordOptions)
 }
 
 // Get references to the #generate element
