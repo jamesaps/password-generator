@@ -108,23 +108,19 @@ function getPasswordOptions() {
   var validCharacterTypesResponse = false;
   var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
 
-  var characterTypesSelected = 0;
-  var characterTypesResponses = {};
+  var characterTypesSelected = [];
 
   while (! validCharacterTypesResponse) {
     characterTypes.forEach(function (characterType) {
       var characterTypeResponse = getCharacterTypeResponse(characterType);
   
-      characterTypesResponses[characterType] = characterTypeResponse;
-  
       if (characterTypeResponse === true) {
-        characterTypesSelected++;
+        characterTypesSelected.push(characterType);
       }
     });
 
-    if (characterTypesSelected === 0) {
+    if (characterTypesSelected.length === 0) {
       alert("You must specify at least one character type to include in your password. Please try again.");
-      characterTypesResponses = {};
     } else {
       validCharacterTypesResponse = true;
     }
@@ -132,7 +128,7 @@ function getPasswordOptions() {
 
   return {
     passwordLength: passwordLength,
-    characterTypesResponses: characterTypesResponses
+    characterTypesSelected: characterTypesSelected
   };
 }
 
@@ -166,8 +162,67 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   var passwordOptions = getPasswordOptions();
+  var passwordCharacters = [];
 
-  console.log(passwordOptions)
+  // first get one character from each of the character types that the user specified
+
+  for (var i = 0; i < passwordOptions.characterTypesSelected.length; i++) {
+    // get a character from the corresponding array and add it to the passwordCharacters string
+    var characterType = passwordOptions.characterTypesSelected[i];
+    passwordCharacters.push(getCharacterFromType(characterType));
+  }
+
+  // then fill up the rest of the passwordCharacters string with random characters from user's specified character types
+  while (passwordCharacters.length < passwordOptions.passwordLength) {
+    var characterType = getRandom(passwordOptions.characterTypesSelected);
+    var characterToAddToPassword = getCharacterFromType(characterType);
+
+    if (characterToAddToPassword === "") {
+      alert("FATAL ERROR: Terminating password generation. An unidentified character type was specified for use in your password.")
+      return "";
+    }
+
+    passwordCharacters.push(characterToAddToPassword);
+  }
+
+  // randomly shuffle array to prevent first 1-4 characters of password being of a predictable character type
+  shuffle(passwordCharacters);
+  
+  // join all elements in array to a single string
+  return passwordCharacters.join("");
+}
+
+// Function to shuffle an array
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
+
+// Function to select a character according to its corresponding plain text description
+function getCharacterFromType(characterType) {
+  switch(characterType) {
+    case "lowercase":
+      return getRandom(lowerCasedCharacters);
+    case "uppercase":
+      return getRandom(upperCasedCharacters);
+    case "numeric":
+      return getRandom(numericCharacters);
+    case "special":
+      return getRandom(specialCharacters);
+    default:
+      return "";
+  }
 }
 
 // Get references to the #generate element
