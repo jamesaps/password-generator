@@ -177,6 +177,12 @@ function generatePassword() {
     var characterType = getRandom(passwordOptions.characterTypesSelected);
     passwordCharacters.push(getCharacterFromType(characterType));
   }
+
+  // randomly shuffle array to prevent first 1-4 characters of password being of a predictable character type
+  shuffle(passwordCharacters);
+  
+  // join all elements in array to a single string
+  return passwordCharacters.join("");
 }
 
 // Function to shuffle an array
@@ -194,8 +200,6 @@ function shuffle(array) {
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
-
-  return array;
 }
 
 // Function to select a character according to its corresponding plain text description
