@@ -175,7 +175,14 @@ function generatePassword() {
   // then fill up the rest of the passwordCharacters string with random characters from user's specified character types
   while (passwordCharacters.length < passwordOptions.passwordLength) {
     var characterType = getRandom(passwordOptions.characterTypesSelected);
-    passwordCharacters.push(getCharacterFromType(characterType));
+    var characterToAddToPassword = getCharacterFromType(characterType);
+
+    if (characterToAddToPassword === "") {
+      alert("FATAL ERROR: Terminating password generation. An unidentified character type was specified for use in your password.")
+      return "";
+    }
+
+    passwordCharacters.push(characterToAddToPassword);
   }
 
   // randomly shuffle array to prevent first 1-4 characters of password being of a predictable character type
