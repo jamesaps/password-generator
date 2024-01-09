@@ -96,10 +96,12 @@ function getPasswordOptions() {
     var passwordLength = prompt('Please enter a desired password length.');
     var passwordLengthInt = parseInt(passwordLength);
 
+    console.log(passwordLengthInt + " " + typeof passwordLengthInt);
+
     if (isNaN(passwordLengthInt)) {
-      prompt('Password length needs to be a number.');
+      alert('Password length needs to be a number. Please try again.');
     } else if (passwordLengthInt < 8 || passwordLengthInt > 128) {
-      prompt('Password length needs to be at least 8 charaters but no more than 128.');
+      alert('Password length needs to be at least 8 charaters but no more than 128 characters. Please try again.');
     } else {
       validPasswordLength = true;
     }
