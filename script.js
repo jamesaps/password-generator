@@ -90,7 +90,70 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+  var validPasswordLength = false;
 
+  while (! validPasswordLength) {
+    var passwordLength = prompt('Please enter a desired password length.');
+    var passwordLengthInt = parseInt(passwordLength);
+
+    if (isNaN(passwordLengthInt)) {
+      alert('Password length needs to be a number. Please try again.');
+    } else if (passwordLengthInt < 8 || passwordLengthInt > 128) {
+      alert('Password length needs to be at least 8 charaters but no more than 128 characters. Please try again.');
+    } else {
+      validPasswordLength = true;
+    }
+  }
+
+  var validCharacterTypesResponse = false;
+  var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
+
+  var characterTypesSelected = 0;
+  var characterTypesResponses = {};
+
+  while (! validCharacterTypesResponse) {
+    characterTypes.forEach(function (characterType) {
+      var characterTypeResponse = getCharacterTypeResponse(characterType);
+  
+      characterTypesResponses[characterType] = characterTypeResponse;
+  
+      if (characterTypeResponse === true) {
+        characterTypesSelected++;
+      }
+    });
+
+    if (characterTypesSelected === 0) {
+      alert("You must specify at least one character type to include in your password. Please try again.");
+      characterTypesResponses = {};
+    } else {
+      validCharacterTypesResponse = true;
+    }
+  }
+
+  return {
+    passwordLength: passwordLength,
+    characterTypesResponses: characterTypesResponses
+  };
+}
+
+// Function for generating a prompt asking for character type inclusion
+function getCharacterTypeResponse(characterType) {
+  var validCharacterTypeResponse = false;
+
+  while(! validCharacterTypeResponse) {
+    var passwordCharacterTypeResponse = prompt(`Would you like your password to include ${characterType} characters? Please enter YES or NO.`);
+    var passwordCharacterTypeResponseCleaned = passwordCharacterTypeResponse.toUpperCase().trim();
+
+    if (passwordCharacterTypeResponseCleaned === "YES") {
+      alert(`Thank you. Your password will contain ${characterType} characters.`);
+      return true;
+    } else if (passwordCharacterTypeResponseCleaned === "NO") {
+      alert(`Thank you. Your password will not contain ${characterType} characters.`);
+      return false;
+    } else {
+      alert("Your response was invalid. Please try again.");
+    }
+  }
 }
 
 // Function for getting a random element from an array
@@ -100,7 +163,9 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
+  var passwordOptions = getPasswordOptions();
 
+  console.log(passwordOptions)
 }
 
 // Get references to the #generate element
