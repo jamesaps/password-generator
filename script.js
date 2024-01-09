@@ -160,10 +160,13 @@ function getCharacterTypeResponse(characterType) {
     
     var passwordCharacterTypeResponseCleaned = passwordCharacterTypeResponse.toUpperCase().trim();
 
-    if (passwordCharacterTypeResponseCleaned === 'YES') {
+    let truthyResponses = ['YES', 'Y', 'TRUE', 'T'];
+    let falsyResponses = ['NO', 'N', 'FALSE', 'F'];
+
+    if (truthyResponses.includes(passwordCharacterTypeResponseCleaned)) {
       alert(`Thank you. Your password will contain ${characterType} characters.`);
       return true;
-    } else if (passwordCharacterTypeResponseCleaned === 'NO') {
+    } else if (falsyResponses.includes(passwordCharacterTypeResponseCleaned)) {
       alert(`Thank you. Your password will not contain ${characterType} characters.`);
       return false;
     } else {
