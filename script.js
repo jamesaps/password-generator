@@ -107,7 +107,7 @@ function getPasswordOptions() {
 
   var validCharacterTypesResponse = false;
   var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
-  
+
   var characterTypesSelected = 0;
   var characterTypesResponses = {};
 
@@ -124,9 +124,9 @@ function getPasswordOptions() {
 
     if (characterTypesSelected === 0) {
       alert("You must specify at least one character type to include in your password. Please try again.");
+      characterTypesResponses = {};
     } else {
       validCharacterTypesResponse = true;
-      characterTypesResponses = {};
     }
   }
 
