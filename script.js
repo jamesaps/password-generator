@@ -162,21 +162,23 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   var passwordOptions = getPasswordOptions();
-  var passwordCharacters = "";
+  var passwordCharacters = [];
 
   // first get one character from each of the character types that the user specified
 
   for (var i = 0; i < passwordOptions.characterTypesSelected.length; i++) {
     // get a character from the corresponding array and add it to the passwordCharacters string
     var characterType = passwordOptions.characterTypesSelected[i];
+    passwordCharacters.push(getCharacterFromType(characterType));
   }
 
   // then fill up the rest of the passwordCharacters string with random characters from user's specified character types
   while (passwordCharacters.length < passwordOptions.passwordLength) {
     var characterType = getRandom(passwordOptions.characterTypesSelected);
-
-
+    passwordCharacters.push(getCharacterFromType(characterType));
   }
+
+  console.log(passwordCharacters);
 }
 
 // Function to select a character according to its corresponding plain text description
