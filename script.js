@@ -179,6 +179,26 @@ function generatePassword() {
   }
 }
 
+// Function to select a character according to its corresponding plain text description
+function getCharacterFromType(characterType) {
+  switch(characterType) {
+    case "lowercase":
+      return getRandom(lowerCasedCharacters);
+      break;
+    case "uppercase":
+      return getRandom(upperCasedCharacters);
+      break;
+    case "numeric":
+      return getRandom(numericCharacters);
+      break;
+    case "special":
+      return getRandom(specialCharacters);
+      break;
+    default:
+      return "";
+  }
+}
+
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
 
