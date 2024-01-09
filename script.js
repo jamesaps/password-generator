@@ -124,7 +124,22 @@ function getPasswordOptions() {
     }
   }
 
-  
+  var validUppercaseCharactersResponse = false;
+
+  while(! validUppercaseCharactersResponse) {
+    var passwordUppercaseCharacters = prompt('Would you like your password to include uppercase characters? Please enter YES or NO.');
+    var passwordUppercaseCharactersResponseCleaned = passwordUppercaseCharacters.toUpperCase().trim();
+
+    if (passwordUppercaseCharactersResponseCleaned === "YES") {
+      alert("Thank you. Your password will contain uppercase characters.");
+      validUppercaseCharactersResponse = true;
+    } else if (passwordUppercaseCharactersResponseCleaned === "NO") {
+      alert("Thank you. Your password will not contain uppercase characters.");
+      validUppercaseCharactersResponse = false;
+    } else {
+      alert("Your response was invalid. Please try again.");
+    }
+  }
 }
 
 // Function for getting a random element from an array
