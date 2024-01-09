@@ -94,6 +94,14 @@ function getPasswordOptions() {
 
   while (! validPasswordLength) {
     var passwordLength = prompt('Please enter a desired password length.');
+
+    // if user cancelled prompt return an error
+    if (passwordLength === null) {
+      return {
+        error: true
+      };
+    }
+
     var passwordLengthInt = parseInt(passwordLength);
 
     if (isNaN(passwordLengthInt)) {
@@ -110,14 +118,21 @@ function getPasswordOptions() {
 
   var characterTypesSelected = [];
 
+  var errorEncountered = false;
+
   while (! validCharacterTypesResponse) {
-    characterTypes.forEach(function (characterType) {
-      var characterTypeResponse = getCharacterTypeResponse(characterType);
-  
-      if (characterTypeResponse === true) {
-        characterTypesSelected.push(characterType);
+    for(var i = 0; i < characterTypes.length; i++) {
+      var characterTypeResponse = getCharacterTypeResponse(characterTypes[i]);
+
+      if (characterTypeResponse === null) {
+        // if user cancelled prompt return an error
+        return {
+          error: true
+        };
+      } else if (characterTypeResponse === true) {
+        characterTypesSelected.push(characterTypes[i]);
       }
-    });
+    }
 
     if (characterTypesSelected.length === 0) {
       alert('You must specify at least one character type to include in your password. Please try again.');
@@ -138,6 +153,11 @@ function getCharacterTypeResponse(characterType) {
 
   while(! validCharacterTypeResponse) {
     var passwordCharacterTypeResponse = prompt(`Would you like your password to include ${characterType} characters? Please enter YES or NO.`);
+    
+    if (passwordCharacterTypeResponse === null) {
+      return null;
+    }
+    
     var passwordCharacterTypeResponseCleaned = passwordCharacterTypeResponse.toUpperCase().trim();
 
     if (passwordCharacterTypeResponseCleaned === 'YES') {
@@ -162,6 +182,12 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   var passwordOptions = getPasswordOptions();
+
+  if (passwordOptions.error) {
+    alert('Password generation cancelled.');
+    return '';
+  }
+
   var passwordCharacters = [];
 
   // first get one character from each of the character types that the user specified
