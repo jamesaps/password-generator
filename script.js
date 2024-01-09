@@ -108,10 +108,10 @@ function getPasswordOptions() {
   }
 
   var validCharacterTypesResponse = false;
+  var characterTypesResponses = {};
 
   while (! validCharacterTypesResponse) {
     var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
-    var characterTypesResponses = {};
     var characterTypesSelected = 0;
   
     characterTypes.forEach(function (characterType) {
@@ -128,8 +128,14 @@ function getPasswordOptions() {
       alert("You must specify at least one character type to include in your password. Please try again.");
     } else {
       validCharacterTypesResponse = true;
+      characterTypesResponses = {};
     }
   }
+
+  return {
+    passwordLength: passwordLength,
+    characterTypesResponses: characterTypesResponses
+  };
 }
 
 // Function for generating a prompt asking for character type inclusion
