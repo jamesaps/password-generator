@@ -107,69 +107,30 @@ function getPasswordOptions() {
     }
   }
 
-  var validLowercaseCharactersResponse = false;
+  var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
+  var characterTypesResponses = {};
 
-  while(! validLowercaseCharactersResponse) {
-    var passwordLowercaseCharacters = prompt('Would you like your password to include lowercase characters? Please enter YES or NO.');
-    var passwordLowercaseCharactersResponseCleaned = passwordLowercaseCharacters.toUpperCase().trim();
+  characterTypes.forEach(function (characterType) {
+    characterTypesResponses[characterType] = getCharacterTypeResponse(characterType);
+  });
 
-    if (passwordLowercaseCharactersResponseCleaned === "YES") {
-      alert("Thank you. Your password will contain lowercase characters.");
-      validLowercaseCharactersResponse = true;
-    } else if (passwordLowercaseCharactersResponseCleaned === "NO") {
-      alert("Thank you. Your password will not contain lowercase characters.");
-      validLowercaseCharactersResponse = false;
-    } else {
-      alert("Your response was invalid. Please try again.");
-    }
-  }
+  console.log(characterTypesResponses);
+}
 
-  var validUppercaseCharactersResponse = false;
+// Function for generating a prompt asking for character type inclusion
+function getCharacterTypeResponse(characterType) {
+  var validCharacterTypeResponse = false;
 
-  while(! validUppercaseCharactersResponse) {
-    var passwordUppercaseCharacters = prompt('Would you like your password to include uppercase characters? Please enter YES or NO.');
-    var passwordUppercaseCharactersResponseCleaned = passwordUppercaseCharacters.toUpperCase().trim();
+  while(! validCharacterTypeResponse) {
+    var passwordCharacterTypeResponse = prompt(`Would you like your password to include ${characterType} characters? Please enter YES or NO.`);
+    var passwordCharacterTypeResponseCleaned = passwordCharacterTypeResponse.toUpperCase().trim();
 
-    if (passwordUppercaseCharactersResponseCleaned === "YES") {
-      alert("Thank you. Your password will contain uppercase characters.");
-      validUppercaseCharactersResponse = true;
-    } else if (passwordUppercaseCharactersResponseCleaned === "NO") {
-      alert("Thank you. Your password will not contain uppercase characters.");
-      validUppercaseCharactersResponse = false;
-    } else {
-      alert("Your response was invalid. Please try again.");
-    }
-  }
-
-  var validNumericCharactersResponse = false;
-
-  while(! validNumericCharactersResponse) {
-    var passwordNumericCharacters = prompt('Would you like your password to include numeric characters? Please enter YES or NO.');
-    var passwordNumericCharactersResponseCleaned = passwordNumericCharacters.toUpperCase().trim();
-
-    if (passwordNumericCharactersResponseCleaned === "YES") {
-      alert("Thank you. Your password will contain numeric characters.");
-      validNumericCharactersResponse = true;
-    } else if (passwordNumericCharactersResponseCleaned === "NO") {
-      alert("Thank you. Your password will not contain numeric characters.");
-      validNumericCharactersResponse = false;
-    } else {
-      alert("Your response was invalid. Please try again.");
-    }
-  }
-
-  var validSpecialCharactersResponse = false;
-
-  while(! validSpecialCharactersResponse) {
-    var passwordSpecialCharacters = prompt('Would you like your password to include special characters? Please enter YES or NO.');
-    var passwordSpecialCharactersResponseCleaned = passwordSpecialCharacters.toUpperCase().trim();
-
-    if (passwordSpecialCharactersResponseCleaned === "YES") {
-      alert("Thank you. Your password will contain special characters.");
-      validSpecialCharactersResponse = true;
-    } else if (passwordSpecialCharactersResponseCleaned === "NO") {
-      alert("Thank you. Your password will not contain special characters.");
-      validSpecialCharactersResponse = false;
+    if (passwordCharacterTypeResponseCleaned === "YES") {
+      alert(`Thank you. Your password will contain ${characterType} characters.`);
+      return true;
+    } else if (passwordCharacterTypeResponseCleaned === "NO") {
+      alert(`Thank you. Your password will not contain ${characterType} characters.`);
+      return false;
     } else {
       alert("Your response was invalid. Please try again.");
     }
