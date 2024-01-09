@@ -5,7 +5,7 @@ var specialCharacters = [
   '+',
   '\\',
   '/',
-  "'",
+  ''',
   '!',
   '#',
   '$',
@@ -106,7 +106,7 @@ function getPasswordOptions() {
   }
 
   var validCharacterTypesResponse = false;
-  var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
+  var characterTypes = ['lowercase', 'uppercase', 'numeric', 'special'];
 
   var characterTypesSelected = [];
 
@@ -120,7 +120,7 @@ function getPasswordOptions() {
     });
 
     if (characterTypesSelected.length === 0) {
-      alert("You must specify at least one character type to include in your password. Please try again.");
+      alert('You must specify at least one character type to include in your password. Please try again.');
     } else {
       validCharacterTypesResponse = true;
     }
@@ -140,14 +140,14 @@ function getCharacterTypeResponse(characterType) {
     var passwordCharacterTypeResponse = prompt(`Would you like your password to include ${characterType} characters? Please enter YES or NO.`);
     var passwordCharacterTypeResponseCleaned = passwordCharacterTypeResponse.toUpperCase().trim();
 
-    if (passwordCharacterTypeResponseCleaned === "YES") {
+    if (passwordCharacterTypeResponseCleaned === 'YES') {
       alert(`Thank you. Your password will contain ${characterType} characters.`);
       return true;
-    } else if (passwordCharacterTypeResponseCleaned === "NO") {
+    } else if (passwordCharacterTypeResponseCleaned === 'NO') {
       alert(`Thank you. Your password will not contain ${characterType} characters.`);
       return false;
     } else {
-      alert("Your response was invalid. Please try again.");
+      alert('Your response was invalid. Please try again.');
     }
   }
 }
@@ -177,9 +177,9 @@ function generatePassword() {
     var characterType = getRandom(passwordOptions.characterTypesSelected);
     var characterToAddToPassword = getCharacterFromType(characterType);
 
-    if (characterToAddToPassword === "") {
-      alert("FATAL ERROR: Terminating password generation. An unidentified character type was specified for use in your password.")
-      return "";
+    if (characterToAddToPassword === '') {
+      alert('FATAL ERROR: Terminating password generation. An unidentified character type was specified for use in your password.')
+      return '';
     }
 
     passwordCharacters.push(characterToAddToPassword);
@@ -189,7 +189,7 @@ function generatePassword() {
   shuffle(passwordCharacters);
   
   // join all elements in array to a single string
-  return passwordCharacters.join("");
+  return passwordCharacters.join('');
 }
 
 // Function to shuffle an array
@@ -212,16 +212,16 @@ function shuffle(array) {
 // Function to select a character according to its corresponding plain text description
 function getCharacterFromType(characterType) {
   switch(characterType) {
-    case "lowercase":
+    case 'lowercase':
       return getRandom(lowerCasedCharacters);
-    case "uppercase":
+    case 'uppercase':
       return getRandom(upperCasedCharacters);
-    case "numeric":
+    case 'numeric':
       return getRandom(numericCharacters);
-    case "special":
+    case 'special':
       return getRandom(specialCharacters);
     default:
-      return "";
+      return '';
   }
 }
 
