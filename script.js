@@ -107,14 +107,29 @@ function getPasswordOptions() {
     }
   }
 
-  var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
-  var characterTypesResponses = {};
+  var validCharacterTypesResponse = false;
 
-  characterTypes.forEach(function (characterType) {
-    characterTypesResponses[characterType] = getCharacterTypeResponse(characterType);
-  });
+  while (! validCharacterTypesResponse) {
+    var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
+    var characterTypesResponses = {};
+    var characterTypesSelected = 0;
+  
+    characterTypes.forEach(function (characterType) {
+      var characterTypeResponse = getCharacterTypeResponse(characterType);
+  
+      characterTypesResponses[characterType] = characterTypeResponse;
+  
+      if (characterTypeResponse === true) {
+        characterTypesSelected++;
+      }
+    });
 
-  console.log(characterTypesResponses);
+    if (characterTypesSelected === 0) {
+      alert("You must specify at least one character type to include in your password. Please try again.");
+    } else {
+      validCharacterTypesResponse = true;
+    }
+  }
 }
 
 // Function for generating a prompt asking for character type inclusion
