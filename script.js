@@ -157,6 +157,23 @@ function getPasswordOptions() {
       alert("Your response was invalid. Please try again.");
     }
   }
+
+  var validSpecialCharactersResponse = false;
+
+  while(! validSpecialCharactersResponse) {
+    var passwordSpecialCharacters = prompt('Would you like your password to include special characters? Please enter YES or NO.');
+    var passwordSpecialCharactersResponseCleaned = passwordSpecialCharacters.toUpperCase().trim();
+
+    if (passwordSpecialCharactersResponseCleaned === "YES") {
+      alert("Thank you. Your password will contain special characters.");
+      validSpecialCharactersResponse = true;
+    } else if (passwordSpecialCharactersResponseCleaned === "NO") {
+      alert("Thank you. Your password will not contain special characters.");
+      validSpecialCharactersResponse = false;
+    } else {
+      alert("Your response was invalid. Please try again.");
+    }
+  }
 }
 
 // Function for getting a random element from an array
