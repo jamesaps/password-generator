@@ -96,8 +96,6 @@ function getPasswordOptions() {
     var passwordLength = prompt('Please enter a desired password length.');
     var passwordLengthInt = parseInt(passwordLength);
 
-    console.log(passwordLengthInt + " " + typeof passwordLengthInt);
-
     if (isNaN(passwordLengthInt)) {
       alert('Password length needs to be a number. Please try again.');
     } else if (passwordLengthInt < 8 || passwordLengthInt > 128) {
@@ -108,12 +106,12 @@ function getPasswordOptions() {
   }
 
   var validCharacterTypesResponse = false;
+  var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
+  
+  var characterTypesSelected = 0;
   var characterTypesResponses = {};
 
   while (! validCharacterTypesResponse) {
-    var characterTypes = ["lowercase", "uppercase", "numeric", "special"];
-    var characterTypesSelected = 0;
-  
     characterTypes.forEach(function (characterType) {
       var characterTypeResponse = getCharacterTypeResponse(characterType);
   
@@ -166,6 +164,8 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   var passwordOptions = getPasswordOptions();
+
+  console.log(passwordOptions)
 }
 
 // Get references to the #generate element
