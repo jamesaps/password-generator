@@ -184,16 +184,12 @@ function getCharacterFromType(characterType) {
   switch(characterType) {
     case "lowercase":
       return getRandom(lowerCasedCharacters);
-      break;
     case "uppercase":
       return getRandom(upperCasedCharacters);
-      break;
     case "numeric":
       return getRandom(numericCharacters);
-      break;
     case "special":
       return getRandom(specialCharacters);
-      break;
     default:
       return "";
   }
