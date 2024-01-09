@@ -158,7 +158,9 @@ function getCharacterTypeResponse(characterType) {
 
 // Function for getting a random element from an array
 function getRandom(arr) {
+  var randomNumberUpToArrayLength = Math.floor(Math.random() * arr.length);
 
+  return arr[randomNumberUpToArrayLength];
 }
 
 // Function to generate password with user input
