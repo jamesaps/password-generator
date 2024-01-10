@@ -93,7 +93,7 @@ function getPasswordOptions() {
   var validPasswordLength = false;
 
   while (! validPasswordLength) {
-    var passwordLength = prompt('Please enter a desired password length.');
+    var passwordLength = prompt('Please enter a desired password length. It must be between 8 and 128 characters (inclusive).');
 
     // if user cancelled prompt return an error
     if (passwordLength === null) {
